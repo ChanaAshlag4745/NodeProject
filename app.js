@@ -4,6 +4,7 @@ const routes = require('./routes');
 var bodyParser = require("body-parser")
 app.use(bodyParser())
 
+app.use(express.json())
 app.use('/user', routes);
 
 const port = 3000;

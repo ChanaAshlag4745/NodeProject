@@ -1,11 +1,12 @@
 userController = require("./userController")
+const validateUser = require('./validations');
 const express = require('express');
 const router = express.Router();
 
-router.post('/add',userController.add);
-router.put('/update',userController.update);
-router.delete('/delete/:id',userController.delete);
-router.get('/get/:id',userController.get);
+router.post('/', validateUser, userController.add);
+router.put('/', validateUser,userController.update);
+router.delete('/:id',userController.delete);
+router.get('/:id',userController.get);
 
 module.exports = router;
 

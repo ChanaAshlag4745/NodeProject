@@ -10,6 +10,13 @@ userController.update = function(req, res){
 }
 
 userController.get = function(req, res){
+    const newUser = user.getUserById(id);
+    if (!newUser) {
+        const error = new Error(`User with id ${id} not found`);
+        error.statusCode = 404;
+        throw error;
+    }
+    return newUser;
     user.getUser(req.params.id);
 }
 
