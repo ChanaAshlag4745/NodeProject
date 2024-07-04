@@ -18,14 +18,14 @@ userController.update = function (req, res) {
 }
 
 userController.get = function (req, res) {
-    const newUser = user.getUserById(id);
+    console.log(req.params.id)
+    const newUser = user.getUserById(req.params.id);
     if (!newUser) {
-        const error = new Error(`User with id ${id} not found`);
+        const error = new Error(`User with id ${req.params.id} not found`);
         error.statusCode = 404;
         throw error;
     }
     return newUser;
-    user.getUser(req.params.id);
 }
 
 userController.delete = function (req, res) {
