@@ -17,9 +17,9 @@ user.createUser = function(name, email, phone) {
     return newUser;
 }
 
-user.updateUser = function(id, item)
+user.updateUser = function(email, item)
 {
-    const user = getUser(id);
+    const user = getUser(email);
     if(!user)
         return null;
     Object.assign(user, item);
@@ -27,9 +27,10 @@ user.updateUser = function(id, item)
     return user;
 }
 
-user.deleteUser = function(id)
+user.deleteUser = function(email)
 {
-    const ans =  users.splice(id, 1);
+    let index = users.findIndex(u => u.email === email);
+    const ans =  users.splice(index, 1);
     console.log(ans);
     return ans;
 }
