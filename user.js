@@ -1,27 +1,46 @@
-var userlist =[{id:"214335879", name:"chany", email:"ca0556704745@gmail.com", phone:"0556704745"}]
+let users = []; 
+
+class User {
+    constructor(name, email, phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
+}
 
 var user = {};
 
-user.createUser = function(item)
-{
-    userlist.push(item)
+user.createUser = function(name, email, phone) {
+    let newUser = new User(name, email, phone);
+    users.push(newUser);
+    console.log(newUser);
+    return newUser;
 }
 
-user.updateUser = function(item)
+user.updateUser = function(id, item)
 {
-    const index = userlist.findIndex(user => user.id == item.id)
-    userlist[index] = item;
+    const user = getUser(id);
+    if(!user)
+        return null;
+    Object.assign(user, item);
+    console.log(user);
+    return user;
 }
 
 user.deleteUser = function(id)
 {
-    userlist.splice(id, 1)
+    const ans =  users.splice(id, 1);
+    console.log(ans);
+    return ans;
 }
 
-user.getUser = function(id)
+user.getUser = function(email)
 {
-    const index = userlist.findIndex(user => user.id == item.id)
-    return  userlist[index]
+    let user = users.find(u => u.email === email);
+    if (!user) {
+        throw new Error("User not found");
+    }
+    return user;
 }
 
 module.exports = user;
