@@ -1,15 +1,23 @@
 var user = require("./user")
 var userController = {}
 
-userController.add = function(req, res){
-    return user.createUser(req.body);
+userController.add = function (req, res) {
+    const {id, name, email, phone } = req.body;
+    const newUser = user.createUser(id, name, email, phone);
+    res.json(newUser)
 }
 
-userController.update = function(req, res){
-    return user.updateUser(req.body);
+userController.update = function (req, res) {
+    const {id, name, email, phone } = req.body;
+    const updatedUser = userController.updateUser(req.body.id, req.body);
+    if (updatedUser) {
+        res.json(updatedUser);
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
 }
 
-userController.get = function(req, res){
+userController.get = function (req, res) {
     const newUser = user.getUserById(id);
     if (!newUser) {
         const error = new Error(`User with id ${id} not found`);
@@ -20,8 +28,13 @@ userController.get = function(req, res){
     user.getUser(req.params.id);
 }
 
-userController.delete = function(req, res){
-    return user.deleteUser(req.params.id);
+userController.delete = function (req, res) {
+    const deleted = user.deleteUser(req.params.id);
+    if (deleted) {
+        res.json({ message: 'User deleted successfully' });
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
 }
 
 module.exports = userController
